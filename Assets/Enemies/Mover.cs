@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class Enemy : MonoBehaviour
+public class Mover : MonoBehaviour
 {
     [Tooltip("Seconds per tile. Lower = faster")]
     [SerializeField] [Range(0f, 5f)] float speed = 1f;

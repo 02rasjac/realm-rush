@@ -10,7 +10,7 @@ public class TargetLocator : MonoBehaviour
 
     void Start()
     {
-        target = FindObjectOfType<Enemy>().gameObject;
+        target = FindObjectOfType<Mover>().gameObject;
     }
 
     void Update()
