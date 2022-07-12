@@ -7,12 +7,17 @@ using TMPro;
 [ExecuteAlways]
 public class CoordinateLabeler : MonoBehaviour
 {
+    [Header("Colors")]
+    [SerializeField] Color defaultColor = Color.white;
+    [SerializeField] Color blocketColor = Color.black;
+
     TextMeshPro tmp;
     Vector2Int coord;
 
     void Awake()
     {
         tmp = GetComponent<TextMeshPro>();
+        tmp.enabled = false;
         DisplayCoordinates();
     }
 
@@ -20,8 +25,32 @@ public class CoordinateLabeler : MonoBehaviour
     {
         if (!Application.isPlaying)
         {
+            tmp.enabled = true;
             DisplayCoordinates();
             UpdateName();
+        }
+
+        ColorCoordinates();
+        ToggleLabels();
+    }
+
+    void ColorCoordinates()
+    {
+        if (GetComponentInParent<Waypoint>().IsPlaceable)
+        {
+            tmp.color = defaultColor;
+        }
+        else
+        {
+            tmp.color = blocketColor;
+        }
+    }
+
+    void ToggleLabels()
+    {
+        if (Input.GetKeyDown(KeyCode.C))
+        {
+            tmp.enabled = !tmp.enabled;
         }
     }
 
