@@ -5,7 +5,7 @@ using UnityEngine;
 public class Enemy : MonoBehaviour
 {
     [Tooltip("Seconds per tile. Lower = faster")]
-    [SerializeField] float waitTime = 1f;
+    [SerializeField] [Range(0f, 5f)] float speed = 1f;
     [SerializeField] List<Waypoint> path;
 
     void Start()
@@ -17,8 +17,17 @@ public class Enemy : MonoBehaviour
     {
         foreach (Waypoint waypoint in path)
         {
-            transform.position = waypoint.transform.position;
-            yield return new WaitForSeconds(waitTime);
+            Vector3 startPos = transform.position;
+            Vector3 endPos   = waypoint.transform.position;
+            float movePerc   = 0f;
+
+            while (movePerc <= 1f)
+            {
+                movePerc += Time.deltaTime * speed;
+                transform.LookAt(endPos);
+                transform.position = Vector3.Lerp(startPos, endPos, movePerc);
+                yield return new WaitForEndOfFrame();
+            }
         }
     }
 }
