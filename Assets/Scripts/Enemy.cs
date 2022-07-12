@@ -4,13 +4,21 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] List<Waypoint> waypoints;
+    [Tooltip("Seconds per tile. Lower = faster")]
+    [SerializeField] float waitTime = 1f;
+    [SerializeField] List<Waypoint> path;
 
     void Start()
     {
-        foreach (Waypoint waypoint in waypoints)
+        StartCoroutine(FollowPath());
+    }
+
+    IEnumerator FollowPath()
+    {
+        foreach (Waypoint waypoint in path)
         {
-            Debug.Log($"{waypoint.name}");
+            transform.position = waypoint.transform.position;
+            yield return new WaitForSeconds(waitTime);
         }
     }
 }
