@@ -9,7 +9,7 @@ public class Mover : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] float speed = 1f;
     [SerializeField] List<Waypoint> path;
 
-    void Start()
+    void OnEnable()
     {
         FindPath();
         ReturnToStart();
@@ -23,6 +23,7 @@ public class Mover : MonoBehaviour
 
     void FindPath()
     {
+        path.Clear();
         GameObject pathParent = GameObject.FindGameObjectWithTag("Path");
         foreach (Waypoint waypoint in pathParent.GetComponentsInChildren<Waypoint>()) 
         {
@@ -47,6 +48,6 @@ public class Mover : MonoBehaviour
             }
         }
 
-        Destroy(this.gameObject);
+        gameObject.SetActive(false);
     }
 }

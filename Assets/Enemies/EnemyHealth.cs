@@ -4,14 +4,20 @@ using UnityEngine;
 
 public class EnemyHealth : MonoBehaviour
 {
-    [SerializeField] int health = 2;
+    [SerializeField] int maxHealth = 5;
+    [SerializeField] int currentHealth = 5;
+
+    void OnEnable()
+    {
+        currentHealth = maxHealth;
+    }
 
     private void OnParticleCollision(GameObject other)
     {
-        health--;
-        if (health < 1)
+        currentHealth--;
+        if (currentHealth < 1)
         {
-            Destroy(this.gameObject);
+            gameObject.SetActive(false);
         }
     }
 }
