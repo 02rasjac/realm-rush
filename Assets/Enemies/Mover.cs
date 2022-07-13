@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -10,7 +11,23 @@ public class Mover : MonoBehaviour
 
     void Start()
     {
+        FindPath();
+        ReturnToStart();
         StartCoroutine(FollowPath());
+    }
+
+    void ReturnToStart()
+    {
+        transform.position = path[0].transform.position;
+    }
+
+    void FindPath()
+    {
+        GameObject pathParent = GameObject.FindGameObjectWithTag("Path");
+        foreach (Waypoint waypoint in pathParent.GetComponentsInChildren<Waypoint>()) 
+        {
+            path.Add(waypoint);
+        }
     }
 
     IEnumerator FollowPath()
@@ -29,5 +46,7 @@ public class Mover : MonoBehaviour
                 yield return new WaitForEndOfFrame();
             }
         }
+
+        Destroy(this.gameObject);
     }
 }
