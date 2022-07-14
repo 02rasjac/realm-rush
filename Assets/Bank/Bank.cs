@@ -7,7 +7,7 @@ public class Bank : MonoBehaviour
     [SerializeField] int startBalance = 150;
 
     [SerializeField] int currentBalance; //? TEMPORARY
-    public int CurrentBalance { get; }
+    public int CurrentBalance { get { return currentBalance; } }
 
     void Awake()
     {
