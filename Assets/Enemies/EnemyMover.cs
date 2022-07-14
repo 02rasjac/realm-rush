@@ -4,7 +4,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Enemy))]
-public class Mover : MonoBehaviour
+public class EnemyMover : MonoBehaviour
 {
     [Tooltip("Seconds per tile. Lower = faster")]
     [SerializeField] [Range(0f, 5f)] float speed = 1f;
@@ -44,8 +44,8 @@ public class Mover : MonoBehaviour
         foreach (Waypoint waypoint in path)
         {
             Vector3 startPos = transform.position;
-            Vector3 endPos   = waypoint.transform.position;
-            float movePerc   = 0f;
+            Vector3 endPos = waypoint.transform.position;
+            float movePerc = 0f;
 
             while (movePerc <= 1f)
             {
@@ -56,6 +56,11 @@ public class Mover : MonoBehaviour
             }
         }
 
+        FinishPath();
+    }
+
+    void FinishPath()
+    {
         enemy.StealGold();
         gameObject.SetActive(false);
     }
