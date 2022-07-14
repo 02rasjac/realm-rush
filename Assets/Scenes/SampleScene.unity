@@ -1154,7 +1154,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4a6234eebb76b1641a230d07688f50a3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  startBalance: 150
+  startBalance: 300
   currentBalance: 0
 --- !u!4 &1883830884
 Transform:

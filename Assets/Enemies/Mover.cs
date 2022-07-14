@@ -3,6 +3,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Enemy))]
 public class Mover : MonoBehaviour
 {
     [Tooltip("Seconds per tile. Lower = faster")]
