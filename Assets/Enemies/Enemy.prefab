@@ -131,7 +131,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 465833472e9c69c4ca4422bc5ab4b510, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  speed: 1
+  speed: 1.5
   difficultyRamp: 0.1
   path: []
 --- !u!114 &1783631788963112608
@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 2d175946029efd247ad0f33c442997e9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  maxHealth: 3
+  maxHealth: 4
   difficultyRamp: 1
 --- !u!114 &4917609736552360009
 MonoBehaviour:
@@ -160,7 +160,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abd988b6a8070c4c9b0048ce28afac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldReward: 20
+  maxGoldReward: 18
+  minGoldReward: 5
+  goldRewardRamp: 2
   goldPenalty: 25
 --- !u!65 &3776705682543232784
 BoxCollider:

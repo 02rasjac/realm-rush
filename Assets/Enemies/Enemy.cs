@@ -5,8 +5,12 @@ using UnityEngine;
 
 public class Enemy : MonoBehaviour
 {
-    [SerializeField] int goldReward  = 25;
-    [SerializeField] int goldPenalty = 25;
+    [SerializeField] int maxGoldReward = 25;
+    [SerializeField] int minGoldReward = 5;
+    [SerializeField][Range(0, 15)] int goldRewardRamp = 1;
+    [SerializeField] int goldPenalty    = 25;
+
+    int goldReward;
 
     Bank bank;
     ObjectPool pool;
@@ -19,7 +23,8 @@ public class Enemy : MonoBehaviour
         health,
         speed,
         numOfEnemies,
-        spawnTime
+        spawnTime,
+        goldReward
     }
 
     void OnEnable()
@@ -29,6 +34,7 @@ public class Enemy : MonoBehaviour
 
     void Awake()
     {
+        goldReward = maxGoldReward;
         difficultyIncreases = Enum.GetValues(typeof(DifficultyIncrease));
         UpdateNextDiffIncrease();
     }
@@ -55,11 +61,23 @@ public class Enemy : MonoBehaviour
             case DifficultyIncrease.spawnTime:
                 pool.DecreaseSpawnTime();
                 break;
+            case DifficultyIncrease.goldReward:
+                DecreaseGoldReward();
+                break;
             default:
                 break;
         }
 
         UpdateNextDiffIncrease();
+    }
+
+    void DecreaseGoldReward()
+    {
+        if (goldReward >= minGoldReward)
+        {
+            goldReward -= goldRewardRamp;
+        }
+
     }
 
     public void RewardGold()
