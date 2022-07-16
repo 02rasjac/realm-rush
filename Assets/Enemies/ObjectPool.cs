@@ -6,6 +6,8 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] GameObject enemy;
     [SerializeField] [Range(0.1f, 30f)] float spawnTime = 1f;
+    [SerializeField] [Range(0, 50)] int maxActiveInstances = 5;
+    [SerializeField] int difficultyRamp = 1;
     [SerializeField] [Range(0, 50)] int poolSize = 10;
 
     GameObject[] pool;
@@ -14,6 +16,11 @@ public class ObjectPool : MonoBehaviour
     {
         PopulatePool();
         StartCoroutine(SpawnEnemies());
+    }
+
+    public void IncreaseDifficulty()
+    {
+        maxActiveInstances += difficultyRamp;
     }
 
     void PopulatePool()
@@ -26,23 +33,33 @@ public class ObjectPool : MonoBehaviour
         }
     }
 
-    GameObject FindAvailableInstance()
+    GameObject FindAvailableInstance(ref int numOfActives)
     {
+        GameObject firstAvailable = null;
         foreach (var item in pool)
         {
-            if (!item.activeInHierarchy)
-                return item;
+            if (item.activeInHierarchy)
+                numOfActives++;
+            else if (!item.activeInHierarchy && firstAvailable == null)
+                firstAvailable = item;
         }
 
-        return null;
+        return firstAvailable;
+    }
+
+    GameObject FindAvailableInstance()
+    {
+        int numOfActives = 0;
+        return FindAvailableInstance(ref numOfActives);
     }
 
     IEnumerator SpawnEnemies()
     {
         while (true)
         {
-            var obj = FindAvailableInstance();
-            if (obj == null)
+            int numOfActives = 0;
+            var obj = FindAvailableInstance(ref numOfActives);
+            if (obj == null || numOfActives >= maxActiveInstances)
             {
                 yield return new WaitForEndOfFrame();
                 continue;

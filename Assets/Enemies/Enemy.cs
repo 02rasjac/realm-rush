@@ -9,6 +9,7 @@ public class Enemy : MonoBehaviour
     [SerializeField] int goldPenalty = 25;
 
     Bank bank;
+    ObjectPool pool;
 
     Array difficultyIncreases;
     DifficultyIncrease nextIncrease;
@@ -16,7 +17,8 @@ public class Enemy : MonoBehaviour
     public enum DifficultyIncrease
     {
         health,
-        speed
+        speed,
+        numOfEnemies
     }
 
     void OnEnable()
@@ -33,6 +35,7 @@ public class Enemy : MonoBehaviour
     void Start()
     {
         bank = FindObjectOfType<Bank>();
+        pool = FindObjectOfType<ObjectPool>();
     }
 
     public void IncreaseDifficulty()
@@ -44,6 +47,9 @@ public class Enemy : MonoBehaviour
                 break;
             case DifficultyIncrease.speed:
                 GetComponent<EnemyMover>().IncreaseDifficulty();
+                break;
+            case DifficultyIncrease.numOfEnemies:
+                pool.IncreaseDifficulty();
                 break;
             default:
                 break;
