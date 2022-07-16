@@ -48,4 +48,4 @@ MonoBehaviour:
   spawnTime: 1
   maxActiveInstances: 5
   difficultyRamp: 1
-  poolSize: 10
+  poolSize: 20

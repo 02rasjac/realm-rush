@@ -18,7 +18,8 @@ public class Enemy : MonoBehaviour
     {
         health,
         speed,
-        numOfEnemies
+        numOfEnemies,
+        spawnTime
     }
 
     void OnEnable()
@@ -43,13 +44,16 @@ public class Enemy : MonoBehaviour
         switch (nextIncrease)
         {
             case DifficultyIncrease.health:
-                GetComponent<EnemyHealth>().IncreaseDifficulty();
+                GetComponent<EnemyHealth>().IncreaseMaxHealth();
                 break;
             case DifficultyIncrease.speed:
-                GetComponent<EnemyMover>().IncreaseDifficulty();
+                GetComponent<EnemyMover>().IncreaseSpeed();
                 break;
             case DifficultyIncrease.numOfEnemies:
-                pool.IncreaseDifficulty();
+                pool.IncreaseMaxActive();
+                break;
+            case DifficultyIncrease.spawnTime:
+                pool.DecreaseSpawnTime();
                 break;
             default:
                 break;

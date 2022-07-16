@@ -160,9 +160,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 1abd988b6a8070c4c9b0048ce28afac3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  goldReward: 25
+  goldReward: 20
   goldPenalty: 25
-  nextIncrease: 0
 --- !u!65 &3776705682543232784
 BoxCollider:
   m_ObjectHideFlags: 0

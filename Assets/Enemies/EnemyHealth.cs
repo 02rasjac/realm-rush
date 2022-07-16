@@ -23,7 +23,7 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
-    public void IncreaseDifficulty()
+    public void IncreaseMaxHealth()
     {
         maxHealth += difficultyRamp;
     }

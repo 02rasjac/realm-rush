@@ -26,7 +26,7 @@ public class EnemyMover : MonoBehaviour
         StartCoroutine(FollowPath());
     }
 
-    public void IncreaseDifficulty()
+    public void IncreaseSpeed()
     {
         speed += difficultyRamp;
     }

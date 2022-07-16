@@ -6,8 +6,9 @@ public class ObjectPool : MonoBehaviour
 {
     [SerializeField] GameObject enemy;
     [SerializeField] [Range(0.1f, 30f)] float spawnTime = 1f;
+    [SerializeField] [Range(0.01f, 0.1f)] float spawnTimeRamp = 0.01f;
     [SerializeField] [Range(0, 50)] int maxActiveInstances = 5;
-    [SerializeField] int difficultyRamp = 1;
+    [SerializeField] int maxActiveRamp = 1;
     [SerializeField] [Range(0, 50)] int poolSize = 10;
 
     GameObject[] pool;
@@ -18,9 +19,16 @@ public class ObjectPool : MonoBehaviour
         StartCoroutine(SpawnEnemies());
     }
 
-    public void IncreaseDifficulty()
+    public void IncreaseMaxActive()
     {
-        maxActiveInstances += difficultyRamp;
+        maxActiveInstances += maxActiveRamp;
+    }
+
+    public void DecreaseSpawnTime()
+    {
+        spawnTime -= spawnTimeRamp;
+        if (spawnTime < 0.1f)
+            spawnTime = 0.1f;
     }
 
     void PopulatePool()
