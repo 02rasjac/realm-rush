@@ -132,6 +132,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   speed: 1
+  difficultyRamp: 0.1
   path: []
 --- !u!114 &1783631788963112608
 MonoBehaviour:
@@ -161,6 +162,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   goldReward: 25
   goldPenalty: 25
+  nextIncrease: 0
 --- !u!65 &3776705682543232784
 BoxCollider:
   m_ObjectHideFlags: 0

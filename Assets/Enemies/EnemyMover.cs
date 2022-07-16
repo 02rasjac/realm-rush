@@ -6,8 +6,10 @@ using UnityEngine;
 [RequireComponent(typeof(Enemy))]
 public class EnemyMover : MonoBehaviour
 {
-    [Tooltip("Seconds per tile. Lower = faster")]
-    [SerializeField] [Range(0f, 5f)] float speed = 1f;
+    [Tooltip("Tiles per second.")]
+    [SerializeField] [Range(0f, 5f)] float speed = .1f;
+    [Tooltip("Increase speed by this value when next diff-increase is speed")]
+    [SerializeField] float difficultyRamp = 1f;
     [SerializeField] List<Waypoint> path;
 
     Enemy enemy;
@@ -22,6 +24,11 @@ public class EnemyMover : MonoBehaviour
         FindPath();
         ReturnToStart();
         StartCoroutine(FollowPath());
+    }
+
+    public void IncreaseDifficulty()
+    {
+        speed += difficultyRamp;
     }
 
     void ReturnToStart()

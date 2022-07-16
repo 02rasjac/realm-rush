@@ -6,6 +6,7 @@ using UnityEngine;
 public class EnemyHealth : MonoBehaviour
 {
     [SerializeField] int maxHealth = 5;
+    [Tooltip("Increase health by this value when next diff-increase is health")]
     [SerializeField] int difficultyRamp = 1;
 
     int currentHealth = 5;
@@ -22,13 +23,19 @@ public class EnemyHealth : MonoBehaviour
         currentHealth = maxHealth;
     }
 
+    public void IncreaseDifficulty()
+    {
+        maxHealth += difficultyRamp;
+    }
+
     void OnParticleCollision(GameObject other)
     {
         currentHealth--;
         if (currentHealth < 1)
         {
             enemy.RewardGold();
-            maxHealth += difficultyRamp; // Increase difficulty
+            enemy.IncreaseDifficulty();
+
             gameObject.SetActive(false);
         }
     }
