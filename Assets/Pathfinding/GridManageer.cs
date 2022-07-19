@@ -48,6 +48,16 @@ public class GridManageer : MonoBehaviour
             grid[coord].isWalkable = false;
     }
 
+    public void ResetNodes()
+    {
+        foreach (KeyValuePair<Vector2Int, Node> entry in grid)
+        {
+            entry.Value.isExplored = false;
+            entry.Value.isPath = false;
+            entry.Value.connectedTo = null;
+        }
+    }
+
     private void CreateGrid()
     {
         for (int x = 0; x < gridSize.x; x++)
