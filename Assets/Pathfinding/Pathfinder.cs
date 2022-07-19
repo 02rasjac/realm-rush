@@ -33,14 +33,19 @@ public class Pathfinder : MonoBehaviour
 
     public List<Node> CreateNewPath()
     {
+        return CreateNewPath(startCoordinate);
+    }
+
+    public List<Node> CreateNewPath(Vector2Int coordinates)
+    {
         gridManageer.ResetNodes();
-        BreadFirstSearch();
+        BreadFirstSearch(coordinates);
         return BuildPath();
     }
 
     public void NotifyRecievers()
     {
-        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
+        BroadcastMessage("RecalculatePath", false, SendMessageOptions.DontRequireReceiver);
     }
 
     public bool WillBlockPath(Vector2Int coord)
@@ -84,7 +89,7 @@ public class Pathfinder : MonoBehaviour
         }
     }
 
-    void BreadFirstSearch()
+    void BreadFirstSearch(Vector2Int coordinates)
     {
         startNode.isWalkable = true;
         endNode.isWalkable = true;
@@ -92,16 +97,18 @@ public class Pathfinder : MonoBehaviour
         frontier.Clear();
         searched.Clear();
 
-        frontier.Enqueue(startNode);
-        currentSearchNode = startNode;
+        frontier.Enqueue(gridManageer.GetNode(coordinates));
 
-        while (frontier.Count > 0 && currentSearchNode.coordinates != endCoordinate)
+        while (frontier.Count > 0)
         {
             currentSearchNode = frontier.Dequeue();
             ExploreNeighbors();
             if (!searched.ContainsKey(currentSearchNode.coordinates))
                 searched.Add(currentSearchNode.coordinates, currentSearchNode);
             currentSearchNode.isExplored = true;
+
+            if (currentSearchNode.coordinates == endCoordinate)
+                break;
         }
     }
 
