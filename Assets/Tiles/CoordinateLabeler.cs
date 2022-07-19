@@ -51,7 +51,7 @@ public class CoordinateLabeler : MonoBehaviour
         Node node = grid.GetNode(coord);
         if (node == null) { return; }
 
-        if (!node.isWalkable)
+        if (!node.isWalkable || !GetComponentInParent<Tile>().IsPlaceable)
             tmp.color = blockedColor;
         else if (node.isPath)
             tmp.color = pathColor;

@@ -10,13 +10,18 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] float speed = .1f;
     [Tooltip("Increase speed by this value when next diff-increase is speed")]
     [SerializeField] float difficultyRamp = 1f;
-    [SerializeField] List<Tile> path;
+    
+    List<Node> path = new List<Node>();
 
     Enemy enemy;
+    GridManageer gridManageer;
+    Pathfinder pathfinder;
 
     void Awake()
     {
         enemy = GetComponent<Enemy>();
+        gridManageer = FindObjectOfType<GridManageer>();
+        pathfinder = FindObjectOfType<Pathfinder>();
     }
 
     void OnEnable()
@@ -33,25 +38,21 @@ public class EnemyMover : MonoBehaviour
 
     void ReturnToStart()
     {
-        transform.position = path[0].transform.position;
+        transform.position = gridManageer.GetPosFromCoord(pathfinder.StartCoordinate);
     }
 
     void FindPath()
     {
         path.Clear();
-        GameObject pathParent = GameObject.FindGameObjectWithTag("Path");
-        foreach (Tile waypoint in pathParent.GetComponentsInChildren<Tile>()) 
-        {
-            path.Add(waypoint);
-        }
+        path = pathfinder.CreateNewPath();
     }
 
     IEnumerator FollowPath()
     {
-        foreach (Tile waypoint in path)
+        foreach (Node node in path)
         {
             Vector3 startPos = transform.position;
-            Vector3 endPos = waypoint.transform.position;
+            Vector3 endPos = gridManageer.GetPosFromCoord(node.coordinates);
             float movePerc = 0f;
 
             while (movePerc <= 1f)

@@ -5,7 +5,9 @@ using UnityEngine;
 public class Pathfinder : MonoBehaviour
 {
     [SerializeField] Vector2Int startCoordinate;
+    public Vector2Int StartCoordinate { get { return startCoordinate; } }
     [SerializeField] Vector2Int endCoordinate;
+    public Vector2Int EndCoordinate { get { return endCoordinate; } }
 
     Node startNode;
     Node endNode;
@@ -79,6 +81,9 @@ public class Pathfinder : MonoBehaviour
 
     void BreadFirstSearch()
     {
+        startNode.isWalkable = true;
+        endNode.isWalkable = true;
+
         frontier.Clear();
         searched.Clear();
 
