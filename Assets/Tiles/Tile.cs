@@ -25,8 +25,11 @@ public class Tile : MonoBehaviour
         var tileCoord = grid.GetCoordFromPos(transform.position);
         if (grid.GetNode(tileCoord).isWalkable && !pathfinder.WillBlockPath(tileCoord))
         {
-            isPlaceable = !towerPrefab.CreateTower(towerPrefab, transform);
-            grid.BlockNode(tileCoord);
+            if (towerPrefab.CreateTower(towerPrefab, transform))
+            {
+                grid.BlockNode(tileCoord);
+                pathfinder.NotifyRecievers();
+            }
         }
     }
 }

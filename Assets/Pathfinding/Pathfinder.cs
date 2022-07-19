@@ -38,6 +38,11 @@ public class Pathfinder : MonoBehaviour
         return BuildPath();
     }
 
+    public void NotifyRecievers()
+    {
+        BroadcastMessage("RecalculatePath", SendMessageOptions.DontRequireReceiver);
+    }
+
     public bool WillBlockPath(Vector2Int coord)
     {
         if (gridManageer.Grid.ContainsKey(coord))
