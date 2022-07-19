@@ -23,12 +23,12 @@ public class CoordinateLabeler : MonoBehaviour
     {
         tmp = GetComponent<TextMeshPro>();
         tmp.enabled = false;
-        DisplayCoordinates();
     }
 
     void Start()
     {
         grid = FindObjectOfType<GridManageer>();
+        DisplayCoordinates();
     }
 
     void Update()
@@ -71,8 +71,7 @@ public class CoordinateLabeler : MonoBehaviour
 
     void DisplayCoordinates()
     {
-        coord.x = Mathf.RoundToInt(transform.position.x / UnityEditor.EditorSnapSettings.move.x);
-        coord.y = Mathf.RoundToInt(transform.position.z / UnityEditor.EditorSnapSettings.move.z);
+        coord = grid.GetCoordFromPos(transform.position);
         tmp.text = $"{coord.x}, {coord.y}";
     }
 

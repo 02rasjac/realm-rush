@@ -10,7 +10,7 @@ public class EnemyMover : MonoBehaviour
     [SerializeField] [Range(0f, 5f)] float speed = .1f;
     [Tooltip("Increase speed by this value when next diff-increase is speed")]
     [SerializeField] float difficultyRamp = 1f;
-    [SerializeField] List<Waypoint> path;
+    [SerializeField] List<Tile> path;
 
     Enemy enemy;
 
@@ -40,7 +40,7 @@ public class EnemyMover : MonoBehaviour
     {
         path.Clear();
         GameObject pathParent = GameObject.FindGameObjectWithTag("Path");
-        foreach (Waypoint waypoint in pathParent.GetComponentsInChildren<Waypoint>()) 
+        foreach (Tile waypoint in pathParent.GetComponentsInChildren<Tile>()) 
         {
             path.Add(waypoint);
         }
@@ -48,7 +48,7 @@ public class EnemyMover : MonoBehaviour
 
     IEnumerator FollowPath()
     {
-        foreach (Waypoint waypoint in path)
+        foreach (Tile waypoint in path)
         {
             Vector3 startPos = transform.position;
             Vector3 endPos = waypoint.transform.position;
