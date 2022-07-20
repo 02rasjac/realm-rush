@@ -5,8 +5,14 @@ using UnityEngine;
 public class Tower : MonoBehaviour
 {
     [SerializeField] int buildCost = 75;
+    [SerializeField] float buildTimePerPart = 1f;
 
     Bank bank;
+
+    void Start()
+    {
+        StartCoroutine(Build());    
+    }
 
     public bool CreateTower(Tower towerPrefab, Transform wpTrans)
     {
@@ -28,4 +34,27 @@ public class Tower : MonoBehaviour
         Debug.Log("Building tower failed.");
         return false;
     }
+
+    IEnumerator Build()
+    {
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+            foreach (Transform grandchild in child)
+            {
+                grandchild.gameObject.SetActive(false);
+            }
+        }
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+            yield return new WaitForSeconds(buildTimePerPart);
+            foreach (Transform grandchild in child)
+            {
+                grandchild.gameObject.SetActive(true);
+            }
+        }
+    }
+
 }

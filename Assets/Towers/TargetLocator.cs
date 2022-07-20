@@ -13,8 +13,11 @@ public class TargetLocator : MonoBehaviour
     void Update()
     {
         FindClosestEnemy();
-        AimWeapon();
-        Shoot();
+        if (weapon.GetComponentInChildren<ParticleSystem>() != null)
+        {
+            AimWeapon();
+            Shoot();
+        }
     }
 
     void AimWeapon()
